@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @description TODO
  * @date 2023/2/22 14:47
  */
-@FeignClient(value = "search",fallbackFactory = SearchServiceClientFallbackFactory.class)
+@FeignClient(value = "search", fallbackFactory = SearchServiceClientFallbackFactory.class)
 public interface SearchServiceClient {
 
- @PostMapping("/search/index/course")
- public Boolean add(@RequestBody CourseIndex courseIndex);
+    @PostMapping("/search/index/course")
+    public Boolean add(@RequestBody CourseIndex courseIndex);
 }

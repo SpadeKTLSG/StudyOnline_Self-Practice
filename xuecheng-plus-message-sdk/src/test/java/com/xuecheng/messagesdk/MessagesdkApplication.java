@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class MessagesdkApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(MessagesdkApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MessagesdkApplication.class, args);
+    }
 }

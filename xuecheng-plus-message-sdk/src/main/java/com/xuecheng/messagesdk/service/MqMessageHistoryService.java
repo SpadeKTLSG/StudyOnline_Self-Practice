@@ -5,7 +5,7 @@ import com.xuecheng.messagesdk.model.po.MqMessageHistory;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author itcast

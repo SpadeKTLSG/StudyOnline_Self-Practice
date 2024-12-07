@@ -18,7 +18,7 @@ public class FreemarkerController {
 
         ModelAndView modelAndView = new ModelAndView();
         //指定模型
-        modelAndView.addObject("name","小明");
+        modelAndView.addObject("name", "小明");
         //指定模板
         modelAndView.setViewName("test");//根据视图名称加.ftl找到模板
         return modelAndView;

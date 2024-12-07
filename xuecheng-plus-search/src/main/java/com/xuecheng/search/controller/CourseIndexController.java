@@ -23,22 +23,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/index")
 public class CourseIndexController {
 
-    @Value("${elasticsearch.course.index}")
-    private String courseIndexStore;
-
     @Autowired
     IndexService indexService;
+    @Value("${elasticsearch.course.index}")
+    private String courseIndexStore;
 
     @ApiOperation("添加课程索引")
     @PostMapping("course")
     public Boolean add(@RequestBody CourseIndex courseIndex) {
 
         Long id = courseIndex.getId();
-        if(id==null){
+        if (id == null) {
             XueChengPlusException.cast("课程id为空");
         }
         Boolean result = indexService.addCourseIndex(courseIndexStore, String.valueOf(id), courseIndex);
-        if(!result){
+        if (!result) {
             XueChengPlusException.cast("添加课程索引失败");
         }
         return result;

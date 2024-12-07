@@ -26,10 +26,9 @@ public class MyLearningController {
     LearningService learningService;
 
     /**
-     *
-     * @param courseId 课程id
+     * @param courseId    课程id
      * @param teachplanId 课程计划id
-     * @param mediaId 媒资文件id
+     * @param mediaId     媒资文件id
      * @return
      */
     @ApiOperation("获取视频")

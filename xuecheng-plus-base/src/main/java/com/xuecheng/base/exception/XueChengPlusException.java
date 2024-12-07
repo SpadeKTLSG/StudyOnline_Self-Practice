@@ -19,19 +19,20 @@ public class XueChengPlusException extends RuntimeException {
 
     }
 
+    public static void cast(String message) {
+        throw new XueChengPlusException(message);
+    }
+
+    public static void cast(CommonError error) {
+        throw new XueChengPlusException(error.getErrMessage());
+    }
+
     public String getErrMessage() {
         return errMessage;
     }
 
     public void setErrMessage(String errMessage) {
         this.errMessage = errMessage;
-    }
-
-    public static void cast(String message){
-        throw new XueChengPlusException(message);
-    }
-    public static void cast(CommonError error){
-        throw new XueChengPlusException(error.getErrMessage());
     }
 
 }

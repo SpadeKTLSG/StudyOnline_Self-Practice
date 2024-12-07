@@ -56,7 +56,7 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
         String username = authParamsDto.getUsername();
         //查询数据库
         XcUser xcUser = xcUserMapper.selectOne(new LambdaQueryWrapper<XcUser>().eq(XcUser::getUsername, username));
-        if(xcUser == null){
+        if (xcUser == null) {
             throw new RuntimeException("用户不存在");
         }
 
@@ -86,17 +86,17 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
     }
 
     @Transactional
-    public XcUser addWxUser(Map<String,String> userInfo_map){
+    public XcUser addWxUser(Map<String, String> userInfo_map) {
         String unionid = userInfo_map.get("unionid");
         String nickname = userInfo_map.get("nickname");
         //根据unionid查询用户信息
         XcUser xcUser = xcUserMapper.selectOne(new LambdaQueryWrapper<XcUser>().eq(XcUser::getWxUnionid, unionid));
-        if(xcUser !=null){
+        if (xcUser != null) {
             return xcUser;
         }
         //向数据库新增记录
         xcUser = new XcUser();
-        String userId= UUID.randomUUID().toString();
+        String userId = UUID.randomUUID().toString();
         xcUser.setId(userId);//主键
         xcUser.setUsername(unionid);
         xcUser.setPassword(unionid);
@@ -123,7 +123,7 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
     /**
      * 携带授权码申请令牌
      * https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
-     *
+     * <p>
      * {
      * "access_token":"ACCESS_TOKEN",
      * "expires_in":7200,
@@ -132,10 +132,11 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
      * "scope":"SCOPE",
      * "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
      * }
+     *
      * @param code 授权
      * @return
      */
-    private Map<String,String> getAccess_token(String code){
+    private Map<String, String> getAccess_token(String code) {
 
         String url_template = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code";
         //最终的请求路径
@@ -146,7 +147,7 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
         //获取响应的结果
         String result = exchange.getBody();
         //将result转成map
-        Map<String,String> map = JSON.parseObject(result, Map.class);
+        Map<String, String> map = JSON.parseObject(result, Map.class);
         return map;
 
 
@@ -154,9 +155,9 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
 
     /**
      * 携带令牌查询用户信息
-     *
+     * <p>
      * https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
-     *
+     * <p>
      * {
      * "openid":"OPENID",
      * "nickname":"NICKNAME",
@@ -170,13 +171,14 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
      * "PRIVILEGE2"
      * ],
      * "unionid": " o6_bmasdasdsad6_2sgVt7hMZOPfL"
-     *
+     * <p>
      * }
+     *
      * @param access_token
      * @param openid
      * @return
      */
-    private Map<String,String> getUserinfo(String access_token,String openid){
+    private Map<String, String> getUserinfo(String access_token, String openid) {
 
         String url_template = "https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s";
         String url = String.format(url_template, access_token, openid);
@@ -184,9 +186,9 @@ public class WxAuthServiceImpl implements AuthService, WxAuthService {
         ResponseEntity<String> exchange = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
 
         //获取响应的结果
-        String result = new String(exchange.getBody().getBytes(StandardCharsets.ISO_8859_1),StandardCharsets.UTF_8);
+        String result = new String(exchange.getBody().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
         //将result转成map
-        Map<String,String> map = JSON.parseObject(result, Map.class);
+        Map<String, String> map = JSON.parseObject(result, Map.class);
         return map;
 
     }

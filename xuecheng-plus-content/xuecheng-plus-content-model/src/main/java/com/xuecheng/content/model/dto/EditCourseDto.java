@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class EditCourseDto extends AddCourseDto {
 
- @ApiModelProperty(value = "课程id", required = true)
- private Long id;
+    @ApiModelProperty(value = "课程id", required = true)
+    private Long id;
 
 }

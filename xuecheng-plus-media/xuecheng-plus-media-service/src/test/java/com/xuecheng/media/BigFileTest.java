@@ -1,10 +1,12 @@
 package com.xuecheng.media;
 
-import javafx.print.Collation;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,9 +40,9 @@ public class BigFileTest {
             //分块文件写入流
             RandomAccessFile raf_rw = new RandomAccessFile(chunkFile, "rw");
             int len = -1;
-            while ((len=raf_r.read(bytes))!=-1){
-                raf_rw.write(bytes,0,len);
-                if(chunkFile.length()>=chunkSize){
+            while ((len = raf_r.read(bytes)) != -1) {
+                raf_rw.write(bytes, 0, len);
+                if (chunkFile.length() >= chunkSize) {
                     break;
                 }
             }
@@ -68,7 +70,7 @@ public class BigFileTest {
         Collections.sort(filesList, new Comparator<File>() {
             @Override
             public int compare(File o1, File o2) {
-                return Integer.parseInt(o1.getName())-Integer.parseInt(o2.getName());
+                return Integer.parseInt(o1.getName()) - Integer.parseInt(o2.getName());
             }
         });
         //向合并文件写的流
@@ -80,8 +82,8 @@ public class BigFileTest {
             //读分块的流
             RandomAccessFile raf_r = new RandomAccessFile(file, "r");
             int len = -1;
-            while ((len=raf_r.read(bytes))!=-1){
-                raf_rw.write(bytes,0,len);
+            while ((len = raf_r.read(bytes)) != -1) {
+                raf_rw.write(bytes, 0, len);
             }
             raf_r.close();
 
@@ -92,7 +94,7 @@ public class BigFileTest {
         FileInputStream fileInputStream_source = new FileInputStream(sourceFile);
         String md5_merge = DigestUtils.md5Hex(fileInputStream_merge);
         String md5_source = DigestUtils.md5Hex(fileInputStream_source);
-        if(md5_merge.equals(md5_source)){
+        if (md5_merge.equals(md5_source)) {
             System.out.println("文件合并成功");
         }
 

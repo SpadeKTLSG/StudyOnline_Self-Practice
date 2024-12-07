@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @description 内容管理服务启动类
  * @date 2023/2/11 15:49
  */
-@EnableFeignClients(basePackages={"com.xuecheng.content.feignclient"})
+@EnableFeignClients(basePackages = {"com.xuecheng.content.feignclient"})
 @EnableSwagger2Doc
 @SpringBootApplication
 public class ContentApplication {

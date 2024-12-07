@@ -1,8 +1,6 @@
 package com.xuecheng.content;
 
-import com.xuecheng.content.mapper.TeachplanMapper;
 import com.xuecheng.content.model.dto.CoursePreviewDto;
-import com.xuecheng.content.model.dto.TeachplanDto;
 import com.xuecheng.content.service.CoursePublishService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -18,7 +16,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author Mr.M
@@ -40,7 +37,7 @@ public class FreemarkerTest {
         //拿到classpath路径
         String classpath = this.getClass().getResource("/").getPath();
         //指定模板的目录
-        configuration.setDirectoryForTemplateLoading(new File(classpath+"/templates/"));
+        configuration.setDirectoryForTemplateLoading(new File(classpath + "/templates/"));
         //指定编码
         configuration.setDefaultEncoding("utf-8");
 
@@ -49,7 +46,7 @@ public class FreemarkerTest {
         //准备数据
         CoursePreviewDto coursePreviewInfo = coursePublishService.getCoursePreviewInfo(120L);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("model",coursePreviewInfo);
+        map.put("model", coursePreviewInfo);
 
         //Template template 模板, Object model 数据
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, map);
@@ -58,7 +55,7 @@ public class FreemarkerTest {
         //输出文件
         FileOutputStream outputStream = new FileOutputStream(new File("D:\\develop\\upload\\120.html"));
         //使用流将html写入文件
-        IOUtils.copy(inputStream,outputStream);
+        IOUtils.copy(inputStream, outputStream);
 
 
     }

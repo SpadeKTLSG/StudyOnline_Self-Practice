@@ -7,8 +7,6 @@ import com.xuecheng.media.service.MediaFileService;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,7 +14,10 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 任务处理类
@@ -52,8 +53,8 @@ public class VideoTask {
 
         //任务数量
         int size = mediaProcessList.size();
-        log.debug("取到视频处理任务数:"+size);
-        if(size<=0){
+        log.debug("取到视频处理任务数:" + size);
+        if (size <= 0) {
             return;
         }
         //创建一个线程池
@@ -62,7 +63,7 @@ public class VideoTask {
         CountDownLatch countDownLatch = new CountDownLatch(size);
         mediaProcessList.forEach(mediaProcess -> {
             //将任务加入线程池
-            executorService.execute(()->{
+            executorService.execute(() -> {
                 try {
                     //任务id
                     Long taskId = mediaProcess.getId();
@@ -128,7 +129,7 @@ public class VideoTask {
 
                     //更新任务状态为成功
                     mediaFileProcessService.saveProcessFinishStatus(taskId, "2", fileId, url, "创建临时文件异常");
-                }finally {
+                } finally {
                     //计算器减去1
                     countDownLatch.countDown();
                 }
@@ -143,7 +144,7 @@ public class VideoTask {
 
     }
 
-    private String getFilePath(String fileMd5,String fileExt){
-        return   fileMd5.substring(0,1) + "/" + fileMd5.substring(1,2) + "/" + fileMd5 + "/" +fileMd5 +fileExt;
+    private String getFilePath(String fileMd5, String fileExt) {
+        return fileMd5.substring(0, 1) + "/" + fileMd5.substring(1, 2) + "/" + fileMd5 + "/" + fileMd5 + fileExt;
     }
 }

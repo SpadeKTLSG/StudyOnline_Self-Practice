@@ -39,7 +39,7 @@ public class MyCourseTablesController {
 
         //当前登录的用户
         SecurityUtil.XcUser user = SecurityUtil.getUser();
-        if(user == null){
+        if (user == null) {
             XueChengPlusException.cast("请登录");
         }
         //用户id
@@ -54,7 +54,7 @@ public class MyCourseTablesController {
     public XcCourseTablesDto getLearnstatus(@PathVariable("courseId") Long courseId) {
         //当前登录的用户
         SecurityUtil.XcUser user = SecurityUtil.getUser();
-        if(user == null){
+        if (user == null) {
             XueChengPlusException.cast("请登录");
         }
         //用户id
@@ -71,7 +71,7 @@ public class MyCourseTablesController {
     public PageResult<XcCourseTables> mycoursetable(MyCourseTableParams params) {
         //当前登录的用户
         SecurityUtil.XcUser user = SecurityUtil.getUser();
-        if(user == null){
+        if (user == null) {
             XueChengPlusException.cast("请登录");
         }
         //用户id

@@ -1,7 +1,6 @@
 package com.xuecheng.checkcode.service.impl;
 
 import com.xuecheng.checkcode.service.CheckCodeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -16,11 +15,11 @@ import java.util.Map;
 @Component("MemoryCheckCodeStore")
 public class MemoryCheckCodeStore implements CheckCodeService.CheckCodeStore {
 
-    Map<String,String> map = new HashMap<String,String>();
+    Map<String, String> map = new HashMap<String, String>();
 
     @Override
     public void set(String key, String value, Integer expire) {
-        map.put(key,value);
+        map.put(key, value);
     }
 
     @Override

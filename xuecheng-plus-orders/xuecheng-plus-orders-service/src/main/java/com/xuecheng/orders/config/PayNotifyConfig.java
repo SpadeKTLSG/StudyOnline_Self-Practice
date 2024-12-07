@@ -36,6 +36,7 @@ public class PayNotifyConfig implements ApplicationContextAware {
         // 三个参数：交换机名称、是否持久化、当没有queue与其绑定时是否自动删除
         return new FanoutExchange(PAYNOTIFY_EXCHANGE_FANOUT, true, false);
     }
+
     //支付通知队列,且持久化
     @Bean(PAYNOTIFY_QUEUE)
     public Queue course_publish_queue() {
@@ -61,7 +62,7 @@ public class PayNotifyConfig implements ApplicationContextAware {
                     replyCode, replyText, exchange, routingKey, message.toString());
             MqMessage mqMessage = JSON.parseObject(message.toString(), MqMessage.class);
             //将消息再添加到消息表
-            mqMessageService.addMessage(mqMessage.getMessageType(),mqMessage.getBusinessKey1(),mqMessage.getBusinessKey2(),mqMessage.getBusinessKey3());
+            mqMessageService.addMessage(mqMessage.getMessageType(), mqMessage.getBusinessKey1(), mqMessage.getBusinessKey2(), mqMessage.getBusinessKey3());
 
         });
     }

@@ -33,13 +33,6 @@ public class MultipartSupportConfig {
     @Autowired
     private ObjectFactory<HttpMessageConverters> messageConverters;
 
-    @Bean
-    @Primary//注入相同类型的bean时优先使用
-    @Scope("prototype")
-    public Encoder feignEncoder() {
-        return new SpringFormEncoder(new SpringEncoder(messageConverters));
-    }
-
     //将file转为Multipart
     public static MultipartFile getMultipartFile(File file) {
         FileItem item = new DiskFileItemFactory().createItem("file", MediaType.MULTIPART_FORM_DATA_VALUE, true, file.getName());
@@ -51,5 +44,12 @@ public class MultipartSupportConfig {
             e.printStackTrace();
         }
         return new CommonsMultipartFile(item);
+    }
+
+    @Bean
+    @Primary//注入相同类型的bean时优先使用
+    @Scope("prototype")
+    public Encoder feignEncoder() {
+        return new SpringFormEncoder(new SpringEncoder(messageConverters));
     }
 }

@@ -38,20 +38,21 @@ public class TeachplanServiceImpl implements TeachplanService {
         return teachplanDtos;
     }
 
-    private int getTeachplanCount(Long courseId,Long parentId){
+    private int getTeachplanCount(Long courseId, Long parentId) {
         LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper = queryWrapper.eq(Teachplan::getCourseId, courseId).eq(Teachplan::getParentid, parentId);
         Integer count = teachplanMapper.selectCount(queryWrapper);
-        return  count+1;
+        return count + 1;
     }
+
     @Override
     public void saveTeachplan(SaveTeachplanDto saveTeachplanDto) {
         //通过课程计划id判断是新增和修改
         Long teachplanId = saveTeachplanDto.getId();
-        if(teachplanId ==null){
+        if (teachplanId == null) {
             //新增
             Teachplan teachplan = new Teachplan();
-            BeanUtils.copyProperties(saveTeachplanDto,teachplan);
+            BeanUtils.copyProperties(saveTeachplanDto, teachplan);
             //确定排序字段，找到它的同级节点个数，排序字段就是个数加1  select count(1) from teachplan where course_id=117 and parentid=268
             Long parentid = saveTeachplanDto.getParentid();
             Long courseId = saveTeachplanDto.getCourseId();
@@ -59,11 +60,11 @@ public class TeachplanServiceImpl implements TeachplanService {
             teachplan.setOrderby(teachplanCount);
             teachplanMapper.insert(teachplan);
 
-        }else{
+        } else {
             //修改
             Teachplan teachplan = teachplanMapper.selectById(teachplanId);
             //将参数复制到teachplan
-            BeanUtils.copyProperties(saveTeachplanDto,teachplan);
+            BeanUtils.copyProperties(saveTeachplanDto, teachplan);
             teachplanMapper.updateById(teachplan);
         }
 
@@ -75,7 +76,7 @@ public class TeachplanServiceImpl implements TeachplanService {
         //课程计划id
         Long teachplanId = bindTeachplanMediaDto.getTeachplanId();
         Teachplan teachplan = teachplanMapper.selectById(teachplanId);
-        if(teachplan == null){
+        if (teachplan == null) {
             XueChengPlusException.cast("课程计划不存在");
         }
 
@@ -84,7 +85,7 @@ public class TeachplanServiceImpl implements TeachplanService {
 
         //再添加新记录
         TeachplanMedia teachplanMedia = new TeachplanMedia();
-        BeanUtils.copyProperties(bindTeachplanMediaDto,teachplanMedia);
+        BeanUtils.copyProperties(bindTeachplanMediaDto, teachplanMedia);
         teachplanMedia.setCourseId(teachplan.getCourseId());
         teachplanMedia.setMediaFilename(bindTeachplanMediaDto.getFileName());
         teachplanMediaMapper.insert(teachplanMedia);

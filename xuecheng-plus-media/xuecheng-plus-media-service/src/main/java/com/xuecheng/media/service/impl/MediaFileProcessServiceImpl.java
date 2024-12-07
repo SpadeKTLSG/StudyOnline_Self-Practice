@@ -40,7 +40,7 @@ public class MediaFileProcessServiceImpl implements MediaFileProcessService {
     //实现如下
     public boolean startTask(long id) {
         int result = mediaProcessMapper.startTask(id);
-        return result<=0?false:true;
+        return result <= 0 ? false : true;
     }
 
     @Override
@@ -48,14 +48,14 @@ public class MediaFileProcessServiceImpl implements MediaFileProcessService {
 
         //要更新的任务
         MediaProcess mediaProcess = mediaProcessMapper.selectById(taskId);
-        if(mediaProcess == null){
-            return ;
+        if (mediaProcess == null) {
+            return;
         }
         //如果任务执行失败
-        if(status.equals("3")){
+        if (status.equals("3")) {
             //更新MediaProcess表的状态
             mediaProcess.setStatus("3");
-            mediaProcess.setFailCount(mediaProcess.getFailCount()+1);//失败次数加1
+            mediaProcess.setFailCount(mediaProcess.getFailCount() + 1);//失败次数加1
             mediaProcess.setErrormsg(errorMsg);
             mediaProcessMapper.updateById(mediaProcess);
             //更高效的更新方式
@@ -81,7 +81,7 @@ public class MediaFileProcessServiceImpl implements MediaFileProcessService {
 
         //将MediaProcess表记录插入到MediaProcessHistory表
         MediaProcessHistory mediaProcessHistory = new MediaProcessHistory();
-        BeanUtils.copyProperties(mediaProcess,mediaProcessHistory);
+        BeanUtils.copyProperties(mediaProcess, mediaProcessHistory);
         mediaProcessHistoryMapper.insert(mediaProcessHistory);
 
         //从MediaProcess删除当前任务

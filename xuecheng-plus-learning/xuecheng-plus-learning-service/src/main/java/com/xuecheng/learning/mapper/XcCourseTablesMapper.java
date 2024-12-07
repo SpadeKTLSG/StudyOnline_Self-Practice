@@ -5,7 +5,7 @@ import com.xuecheng.learning.model.po.XcCourseTables;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author itcast

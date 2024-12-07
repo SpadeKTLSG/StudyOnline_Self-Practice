@@ -2,8 +2,6 @@ package com.xuecheng.checkcode.model;
 
 import lombok.Data;
 
-import java.util.Map;
-
 /**
  * @author Mr.M
  * @version 1.0

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author itcast
@@ -18,10 +18,11 @@ import java.util.List;
 public interface MediaProcessMapper extends BaseMapper<MediaProcess> {
 
     @Select("select * from media_process t where  t.id % #{shardTotal} = #{shardIndex} and (t.status=1 or t.status=3) and t.fail_count<3 limit #{count}")
-    List<MediaProcess>  selectListByShardIndex(@Param("shardTotal") int shardTotal, @Param("shardIndex") int shardIndex, @Param("count") int count);
+    List<MediaProcess> selectListByShardIndex(@Param("shardTotal") int shardTotal, @Param("shardIndex") int shardIndex, @Param("count") int count);
 
     /**
      * 开启一个任务
+     *
      * @param id 任务id
      * @return 更新记录数
      */

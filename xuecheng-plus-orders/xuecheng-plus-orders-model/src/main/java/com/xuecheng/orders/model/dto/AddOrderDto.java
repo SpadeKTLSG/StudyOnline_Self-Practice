@@ -11,7 +11,7 @@ import lombok.ToString;
  */
 @Data
 @ToString
-public class AddOrderDto  {
+public class AddOrderDto {
 
     /**
      * 总价

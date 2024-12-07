@@ -30,7 +30,7 @@ public class FeignUploadTest {
         MultipartFile multipartFile = MultipartSupportConfig.getMultipartFile(file);
         //远程调用得到返回值
         String upload = mediaServiceClient.upload(multipartFile, "course/120.html");
-        if(upload==null){
+        if (upload == null) {
             System.out.println("走了降级逻辑");
         }
     }

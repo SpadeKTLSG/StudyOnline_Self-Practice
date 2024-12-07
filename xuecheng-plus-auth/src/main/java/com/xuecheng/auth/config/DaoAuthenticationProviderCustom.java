@@ -17,13 +17,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class DaoAuthenticationProviderCustom extends DaoAuthenticationProvider {
 
- @Autowired
- public void setUserDetailsService(UserDetailsService userDetailsService) {
-  super.setUserDetailsService(userDetailsService);
- }
+    @Autowired
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        super.setUserDetailsService(userDetailsService);
+    }
 
- @Override
- protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+    @Override
+    protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 
- }
+    }
 }

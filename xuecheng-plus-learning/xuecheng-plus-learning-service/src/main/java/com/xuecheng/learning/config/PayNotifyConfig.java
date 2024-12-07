@@ -29,6 +29,7 @@ public class PayNotifyConfig {
         // 三个参数：交换机名称、是否持久化、当没有queue与其绑定时是否自动删除
         return new FanoutExchange(PAYNOTIFY_EXCHANGE_FANOUT, true, false);
     }
+
     //支付通知队列,且持久化
     @Bean(PAYNOTIFY_QUEUE)
     public Queue course_publish_queue() {
