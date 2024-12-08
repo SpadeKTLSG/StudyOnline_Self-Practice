@@ -63,7 +63,7 @@ public class PayNotifyConfig implements ApplicationContextAware {
             MqMessage mqMessage = JSON.parseObject(message.toString(), MqMessage.class);
             //将消息再添加到消息表
             mqMessageService.addMessage(mqMessage.getMessageType(), mqMessage.getBusinessKey1(), mqMessage.getBusinessKey2(), mqMessage.getBusinessKey3());
-
+            // note, 可以增加记录失败次数(重试次数), 当失败次数达到一定次数时，将消息发送到死信队列 + 后续人工兜底
         });
     }
 }
