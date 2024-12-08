@@ -350,8 +350,14 @@ public class MediaFileServiceImpl implements MediaFileService {
         //分块文件所在目录
         String chunkFileFolderPath = getChunkFileFolderPath(fileMd5);
         //找到所有的分块文件
-        List<ComposeSource> sources = Stream.iterate(0, i -> ++i).limit(chunkTotal).map(i -> ComposeSource.builder().bucket(bucket_video).object(chunkFileFolderPath + i).build()).collect(Collectors.toList());
-        //源文件名称
+        List<ComposeSource> sources = Stream.iterate(0, i -> ++i)
+                .limit(chunkTotal)
+                .map(i -> ComposeSource.builder()
+                        .bucket(bucket_video)
+                        .object(chunkFileFolderPath + i)
+                        .build())
+                .collect(Collectors.toList());
+        //源文件名称z
         String filename = uploadFileParamsDto.getFilename();
         //扩展名
         String extension = filename.substring(filename.lastIndexOf("."));
